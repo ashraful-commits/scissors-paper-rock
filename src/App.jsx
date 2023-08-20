@@ -12,8 +12,8 @@ import {
 } from "react-icons/fa";
 import { RiComputerFill } from "react-icons/ri";
 function App() {
-  const [computer, setComputer] = useState({});
-  const [you, setYou] = useState({});
+  const [computer, setComputer] = useState({ id: "", icon: "", name: "" });
+  const [you, setYou] = useState({ id: "", icon: "", name: "" });
   const [result, setResult] = useState(0);
   const [compResult, setCompresult] = useState(0);
   //====================array
@@ -24,13 +24,12 @@ function App() {
   ];
   //===============paly game
 
-  const playGame = (index) => {
+  const playGame = () => {
     const Index = Math.floor(Math.random() * 3);
     const computer = choice[Index];
-    const you = choice[index];
+
     setComputer(computer);
-    setYou(you);
-    console.log(you.icon);
+
     if (you.name === computer.name) {
       toast("It's tie!", {
         position: "top-center",
@@ -53,7 +52,9 @@ function App() {
     }
   };
   const handlePlay = (index) => {
-    playGame(index);
+    playGame();
+    const you = choice[index];
+    setYou(you);
   };
   useEffect(() => {
     if (result >= 10) {
@@ -67,7 +68,7 @@ function App() {
       setCompresult(0);
       setResult(0);
     }
-  }, [result, compResult]);
+  }, [result, compResult, computer, you]);
   return (
     <>
       <ToastContainer
@@ -137,6 +138,9 @@ function App() {
                 <div className="score mt-16 flex justify-evenly">
                   <span className="w-[70px] h-[70px] bg-black rounded-full flex justify-center items-center text-white text-3xl">
                     {result}
+                  </span>
+                  <span className="w-[70px] h-[70px]rounded-full flex justify-center items-center  text-3xl">
+                    Score
                   </span>
                   <span className="w-[70px] h-[70px] bg-black rounded-full flex justify-center items-center text-white text-3xl">
                     {compResult}
