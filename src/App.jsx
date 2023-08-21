@@ -12,16 +12,17 @@ import {
 } from "react-icons/fa";
 import { RiComputerFill } from "react-icons/ri";
 function App() {
-  const [computer, setComputer] = useState({ id: "", icon: "", name: "" });
-  const [you, setYou] = useState({ id: "", icon: "", name: "" });
-  const [result, setResult] = useState(0);
-  const [compResult, setCompresult] = useState(0);
-  //====================array
   const choice = [
     { id: 0, icon: <FaPaperPlane />, name: "paper" },
     { id: 1, icon: <FaRegHandRock />, name: "rock" },
     { id: 2, icon: <FaRegHandScissors />, name: "scissors" },
   ];
+  const [computer, setComputer] = useState({ id: "", icon: "", name: "" });
+  const [you, setYou] = useState({ id: "", icon: "", name: "" });
+  const [result, setResult] = useState(0);
+  const [compResult, setCompresult] = useState(0);
+  //====================array
+
   //===============paly game
 
   const playGame = () => {
@@ -31,7 +32,7 @@ function App() {
     setComputer(computer);
 
     if (you.name === computer.name) {
-      toast("It's tie!", {
+      toast("It's a tie!", {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -55,6 +56,10 @@ function App() {
     playGame();
     const you = choice[index];
     setYou(you);
+  };
+  const handleReset = () => {
+    setResult(0);
+    setCompresult(0);
   };
   useEffect(() => {
     if (result >= 10) {
@@ -86,7 +91,6 @@ function App() {
       <div className="container-fluid w-screen h-screen flex justify-center items-center">
         <div className="row w-full h-full flex justify-center items-center">
           <div className="col flex justify-center items-center w-[500px] h-[500px]">
-            {/* Same as */}
             <ToastContainer />
             <div className="card w-full h-full  bg-yellow-400 ">
               <div className="card-header w-full text-center  border-b-2 py-2 border-b-black">
@@ -98,7 +102,7 @@ function App() {
                 <div className="player flex my-5 justify-evenly">
                   <div className="you flex flex-col items-center">
                     <span className="flex flex-col items-center">
-                      <FaUser className="text-3xl border border-black rounded-full w-[50px] h-[50px]  p-1" />{" "}
+                      <FaUser className="text-3xl border border-black rounded-full w-[50px] h-[50px]  p-1" />
                       You
                     </span>
                     <span className="mt-5 text-4xl text-white shadow-xl">
@@ -108,12 +112,11 @@ function App() {
                       {choice.map((item, index) => {
                         return (
                           <button
-                            className="bg-black group text-white w-[40px] h-[40px] flex justify-center items-center rounded-full hover:bg-yellow-700 hover:text-white transition-all scale-100  duration-100 "
+                            className="bg-black group text-white w-[40px] h-[40px] flex justify-center items-center rounded-full hover:bg-white hover:text-black transition-all scale-100  duration-100 "
                             onClick={() => handlePlay(index)}
                             key={index}
                           >
                             <span className=" group-hover:scale-125">
-                              {" "}
                               {item.icon}
                             </span>
                           </button>
@@ -147,7 +150,15 @@ function App() {
                   </span>
                 </div>
               </div>
-              <div className="card-footer"></div>
+              <div className="card-footer flex justify-center items-center">
+                {" "}
+                <button
+                  onClick={handleReset}
+                  className="bg-white px-8 hover:bg-black hover:text-white transition-all delay-100 duration-100 rounded-full py-2"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
         </div>
